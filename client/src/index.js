@@ -17,7 +17,6 @@ if(!chrome.storage) {
     registerServiceWorker();
 } else {
     chrome.storage.sync.get(['collected', 'response'], function(items) {
-        console.log(items)
         ReactDOM.render(
             <Provider store={store} >
                 <App redditData={items['response']}/>
