@@ -19,9 +19,9 @@ stopwords = ['', 'and', 'or']
 #keywords must
 def get_articles_from_keywords(keywords):
     keyword_string = ''
-    
-    for i in range(keywords.count):
-        if(i != keywords.count):
+    print(keywords)
+    for i in range(len(keywords)):
+        if i != len(keywords):
             str_temp = keywords[i] + " OR "
             keyword_string+= str_temp
         else:
@@ -33,8 +33,8 @@ def get_articles_from_keywords(keywords):
 
     encoded_keywords = urlencode(keyword_dict, quote_via=quote_plus)
 
-    now = datetime.datetime.now().replace(microsecond=0)
-    now = now - datetime.timedelta(days=7)
+    now = datetime.now().replace(microsecond=0)
+    now = now - timedelta(days=7)
 
     all_articles = newsapi.get_everything(
         q=encoded_keywords[2:],
@@ -46,7 +46,7 @@ def get_articles_from_keywords(keywords):
     articles = all_articles['articles']
     parsed_list = []
     for entry in articles:
-        parsed_list.append(Article(entry['title'], entry['description'], entry['url']))
+        parsed_list.append(Article(entry['title'], entry['description'], entry['url']).json())
     
     return parsed_list
 
