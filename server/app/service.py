@@ -19,7 +19,6 @@ stopwords = ['', 'and', 'or']
 #keywords must
 def get_articles_from_keywords(keywords):
     keyword_string = ''
-    print(keywords)
     for i in range(len(keywords)):
         if i != len(keywords):
             str_temp = keywords[i] + " OR "

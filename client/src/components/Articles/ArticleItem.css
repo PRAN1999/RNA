@@ -5,3 +5,7 @@
     margin: 0px 0px 1em 0px;
     box-shadow: -2px 4px 4px rgba(0, 0, 0, 0.1);
 }
+
+.fit-link {
+    overflow: auto;
+}

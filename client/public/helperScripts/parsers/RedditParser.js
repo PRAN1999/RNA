@@ -4,14 +4,20 @@
     window.RedditParser = class RedditParser extends QAParser {
         constructor() {
             super('a.title', 'div.md-container', 'div.score.unvoted');
+            
         }
 
-        getParsedRedditPage() {
-            return {
-                title: this.getQuestion(),
-                body: this.getTopAnswer(),
-                score: this.getAnswerVotes()
-            }
+        getLinkOrTextFromPost() {
+            const anchor_tag = document.querySelector(this.question_class);
+            if(anchor_tag && anchor_tag.href)
+                return { href: anchor_tag.href };
+
+            const body_element = document.querySelector(this.answer_class);
+            anchor_tag = body_element.querySelector('a');
+            if(anchor_tag && anchor_tag.href)
+                return { href: anchor_tag.href };
+                
+            return { body: body_element.innerText };
         }
 
         getTopAnswer() {

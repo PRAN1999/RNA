@@ -1,3 +1,4 @@
+const BASE_URL = 'http://localhost:5000/service/relevant-articles';
 let popupWindowManager = new PopupWindowManager();
 let pageSourceScraper = new PageSourceScraper();
 
@@ -5,16 +6,27 @@ chrome.tabs.onUpdated.addListener(function(activeInfo) {
     pageSourceScraper.requestSource();
 });
 
+function constructRequestUrl(reddit_data) {
+    if(reddit_data.href)
+        return `${BASE_URL}?url=${reddit_data.href}`;
+    else if(reddit_data.body)
+        return `${BASE_URL}?body=${reddit_data.body}`
+    else
+        return null;
+}
+
 function sendCollectedData(payload) {
     if(!payload || !payload.reddit_data)
         return;
 
+    const requestUrl = encodeURI(constructRequestUrl(payload.reddit_data));
+    if(!requestUrl)
+        return;
 
-    const url = encodeURI('https://www.forbes.com/sites/moorinsights/2018/11/07/ibm-raises-the-bar-for-storage-again/#1f4420543734');
-
+    console.log(requestUrl);
     $.ajax({
         type: 'GET',
-        url: `http://localhost:5000/service/relevant-articles?url=${url}`,
+        url: requestUrl,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         // The Django server expects JSON payloads as a String then parses it using json.loads(payload)
