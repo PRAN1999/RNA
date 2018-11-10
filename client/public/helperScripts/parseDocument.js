@@ -23,8 +23,8 @@ var data = {
 
 try {
 
-    if(site_href.includes('reddit')) {
-        data.reddit_data = parser.getParsedRedditPage();
+    if(site_href.includes('reddit') && site_href.includes('/comments/')) {
+        data.reddit_data = parser.getLinkOrTextFromPost();
     }
 
     chrome.runtime.sendMessage({
