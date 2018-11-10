@@ -6,9 +6,10 @@ chrome.tabs.onUpdated.addListener(function(activeInfo) {
 });
 
 function sendCollectedData(payload) {
-    console.log(payload);
-    popupWindowManager.updatePopupWindow(payload, null);
+    if(!payload || !payload.reddit_data)
+        return;
     
+    popupWindowManager.updatePopupWindow(payload, null);
     console.log('sending to server');
     $.ajax({
         type: 'POST',
