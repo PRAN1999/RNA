@@ -8,37 +8,13 @@ chrome.tabs.onUpdated.addListener(function(activeInfo) {
 function sendCollectedData(payload) {
     if(!payload || !payload.reddit_data)
         return;
-    
-    popupWindowManager.updatePopupWindow(payload, {
-        articles: [
-            {
-                title: 'Google',
-                description: 'A very good search engine',
-                url: 'https://www.google.com/'
-            },
-            {
-                title: 'Facebook',
-                description: 'An ok social media network',
-                url: 'https://www.facebook.com/'
-            },
-            {
-                title: 'YouTube',
-                description: 'A great way to waste time',
-                url: 'https://www.youtube.com/'
-            }
-        ],
-        keywords: [
-            'Google',
-            'Search Engine',
-            'Advertisement',
-            'Social Media'
-        ]
-    });
 
-    console.log('sending to server');
+
+    const url = encodeURI('https://www.forbes.com/sites/moorinsights/2018/11/07/ibm-raises-the-bar-for-storage-again/#1f4420543734');
+
     $.ajax({
-        type: 'POST',
-        url: '',
+        type: 'GET',
+        url: `http://localhost:5000/service/relevant-articles?url=${url}`,
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         // The Django server expects JSON payloads as a String then parses it using json.loads(payload)
