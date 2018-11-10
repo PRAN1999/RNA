@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../../rna.png';
 import './App.css';
 import TagSelect from '../TagSelect/TagSelect';
+import ArticleList from '../Articles/ArticleList';
 
 class App extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class App extends Component {
         </p>
         <div className="App-body">
           <TagSelect options={this.props.redditData.keywords} />
+          <ArticleList articles={this.props.redditData.articles} />
         </div>
       </div>
     );

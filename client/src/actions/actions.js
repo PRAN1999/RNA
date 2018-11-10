@@ -22,13 +22,6 @@ export function filterByKeywords(keywords) {
     return updateArticles(keywords);
 }
 
-export function updateActiveArticle(index) {
-    return {
-        type: UPDATE_ACTIVE_ARTICLE,
-        index
-    }
-}
-
 export function updateViewState(viewState) {
     return {
         type: UPDATE_VIEW_STATE,

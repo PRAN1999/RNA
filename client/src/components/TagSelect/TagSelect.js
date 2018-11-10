@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Select from "react-select";
+import { connect } from "react-redux";
+import { filterByKeywords } from "../../actions/actions";
 
-export default class TagSelect extends Component {
+class TagSelect extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,7 +16,20 @@ export default class TagSelect extends Component {
         }
     }
 
+    onOptionsUpdated = (selectedOptions) => {
+        this.props.filterByKeywords(selectedOptions.map(option => option.value));
+    }
+
     render() {
-        return <Select options={this.state.options} isMulti={true} />;
+        return <Select 
+            onChange={this.onOptionsUpdated}
+            options={this.state.options} 
+            isMulti={true} 
+        />;
     }
 }
+
+// The second argument to connect() is mapDispatchToProps, 
+// we can simply pass in an object containing the functions
+// we'd like to map to the props of the TagSelect object
+export default connect(null, { filterByKeywords })(TagSelect); 
