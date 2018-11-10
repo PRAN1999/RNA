@@ -1,0 +1,33 @@
+{
+  "name": "RNA",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Allows users to view linked content on Reddit",
+  "permissions": [
+      "storage", 
+      "declarativeContent", 
+      "activeTab", 
+      "tabs", 
+      "contextMenus", 
+      "notifications",
+      "<all_urls>",
+      "alarms"
+  ],
+  "browser_action": {
+    "default_popup": "index.html"
+  },
+  "background": {
+      "scripts": [
+        "libs/jquery.min.js", 
+        "backgroundScripts/popupWindowManager.js",
+        "backgroundScripts/pageSourceScraper.js",
+        "background.js"
+      ],
+      "persistent": false
+  },
+  "content_scripts": [{
+      "all_frames": true,
+      "js": ["libs/jquery.min.js"],
+      "matches": ["http://*/*", "https://*/*"]
+  }]
+}
