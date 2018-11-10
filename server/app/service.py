@@ -16,7 +16,6 @@ watson_nlu = NaturalLanguageUnderstandingV1(
 )
 stopwords = ['', 'and', 'or']
 
-#keywords must
 def get_articles_from_keywords(keywords):
     keyword_string = ''
     
@@ -51,12 +50,17 @@ def get_articles_from_keywords(keywords):
     return parsed_list
 
 def get_keywords_from_url(url):
+    xpath_str = None
+    if 'reddit' in url:
+        xpath_str = '//div[@class="expando"]'
     res = watson_nlu.analyze(
-        url=url, 
+        url=url,
+        xpath=xpath_str,
         features=Features(
             categories=CategoriesOptions(),
             concepts=ConceptsOptions(limit=7)
-        )).get_result()
+        )
+    ).get_result()
     kwds = set()
     categories = res['categories']
     for category in categories:
@@ -70,3 +74,4 @@ def get_keywords_from_url(url):
         if stopword in kwds:
             kwds.remove(stopword)
     return list(kwds)
+
