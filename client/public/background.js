@@ -27,10 +27,9 @@ function sendCollectedData(payload) {
     $.ajax({
         type: 'GET',
         url: requestUrl,
-        contentType: 'application/json; charset=utf-8',
+        contentType: 'application/json',
         dataType: 'json',
         // The Django server expects JSON payloads as a String then parses it using json.loads(payload)
-        data: JSON.stringify(payload),
         success: function(response) {
             console.log(response);
             popupWindowManager.updatePopupWindow(payload, response);
