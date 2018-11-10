@@ -8,6 +8,7 @@ itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.0
 newsapi-python==0.2.3
+praw==6.0.0
 python-dateutil==2.7.5
 requests==2.17.1
 six==1.11.0

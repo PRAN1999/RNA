@@ -1,4 +1,5 @@
 from app.config import news_api_key, watson_api_key, watson_url, watson_api_version
+from app.config import reddit_client_id, reddit_client_secret, reddit_username, reddit_password, reddit_user_agent
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 import Features, CategoriesOptions, ConceptsOptions
 from app.models.article import Article
@@ -6,7 +7,7 @@ from newsapi import NewsApiClient
 from datetime import datetime, timedelta
 from urllib.parse import urlencode, quote_plus
 from pprint import pprint
-import json, re, requests
+import json, re, requests, praw
 
 #Init
 newsapi_url = 'https://newsapi.org/v2/everything'
@@ -15,6 +16,14 @@ watson_nlu = NaturalLanguageUnderstandingV1(
     iam_apikey=watson_api_key,
     url=watson_url
 )
+reddit = praw.Reddit(
+    client_id=reddit_client_id,
+    client_secret=reddit_client_secret,
+    password=reddit_password,
+    user_agent=reddit_user_agent,
+    username=reddit_username
+)
+
 stopwords = ['', 'and', 'or']
 
 #keywords must
