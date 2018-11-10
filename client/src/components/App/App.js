@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import logo from '../../rna.png';
 import './App.css';
-import TagSelect from '../TagSelect/TagSelect';
-import ArticleList from '../Articles/ArticleList';
+import TagSelect from '../Tags/TagSelect';
+import TagsWrapper from '../Tags/TagsWrapper';
+import ArticleContainer from '../Articles/ArticleContainer';
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +11,8 @@ class App extends Component {
   }
 
   render() {
+    const { keywords, articles } = this.props.redditData;
+
     return (
       <div className="App">
         <header className="App-header">
@@ -23,8 +26,9 @@ class App extends Component {
           </small>
         </p>
         <div className="App-body">
-          <TagSelect options={this.props.redditData.keywords} />
-          <ArticleList articles={this.props.redditData.articles} />
+          <TagsWrapper tags={ keywords }/>
+          <TagSelect options={ keywords } />
+          <ArticleContainer articles={ articles } />
         </div>
       </div>
     );

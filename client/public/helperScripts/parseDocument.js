@@ -25,7 +25,6 @@ try {
 
     if(site_href.includes('reddit')) {
         data.reddit_data = parser.getParsedRedditPage();
-        console.log(data);
     }
 
     chrome.runtime.sendMessage({
