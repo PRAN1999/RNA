@@ -16,11 +16,11 @@ if(!chrome.storage) {
         document.getElementById('root'));
     registerServiceWorker();
 } else {
-    chrome.storage.sync.get(['reddit_data'], function(items) {
+    chrome.storage.sync.get(['collected', 'response'], function(items) {
         console.log(items)
         ReactDOM.render(
             <Provider store={store} >
-                <App reddit-data={items['reddit_data']}/>
+                <App redditData={items['response']}/>
             </Provider>, 
             document.getElementById('root'));
         registerServiceWorker();
