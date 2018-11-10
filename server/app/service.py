@@ -5,6 +5,7 @@ import json, re
 from app.models.article import Article
 from newsapi import NewsApiClient
 from datetime import datetime, timedelta
+from urllib.parse import urlencode, quote_plus
 
 #Init
 newsapi = NewsApiClient(api_key = news_api_key)
@@ -17,17 +18,37 @@ stopwords = ['', 'and', 'or']
 
 #keywords must
 def get_articles_from_keywords(keywords):
-    now = datetime.datetime.now().replace(microsecond=0).isoformat()
-    print((now))
-    then = now - timedelta(days=7)
-    print(then)
+    keyword_string = ''
+    
+    for i in range(keywords.count):
+        if(i != keywords.count):
+            str_temp = keywords[i] + " OR "
+            keyword_string+= str_temp
+        else:
+            keyword_string+= keywords[i]
+    
+    keyword_dict = {
+        'q':keyword_string
+    }
+
+    encoded_keywords = urlencode(keyword_dict, quote_via=quote_plus)
+
+    now = datetime.datetime.now().replace(microsecond=0)
+    now = now - datetime.timedelta(days=7)
 
     all_articles = newsapi.get_everything(
-        q=keywords,
+        q=encoded_keywords[2:],
+        from_param=now.isoformat(),
         language='en',
         sort_by='relevancy' 
     )
-    return None
+
+    articles = all_articles['articles']
+    parsed_list = []
+    for entry in articles:
+        parsed_list.append(Article(entry['title'], entry['description'], entry['url']))
+    
+    return parsed_list
 
 def get_keywords_from_url(url):
     res = watson_nlu.analyze(
