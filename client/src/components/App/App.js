@@ -22,7 +22,7 @@ class App extends Component {
           </small>
         </p>
         <div className="App-body">
-          <TagSelect/>
+          <TagSelect options={this.props.redditData.keywords} />
         </div>
       </div>
     );

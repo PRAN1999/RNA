@@ -9,7 +9,32 @@ function sendCollectedData(payload) {
     if(!payload || !payload.reddit_data)
         return;
     
-    popupWindowManager.updatePopupWindow(payload, null);
+    popupWindowManager.updatePopupWindow(payload, {
+        articles: [
+            {
+                title: 'Google',
+                description: 'A very good search engine',
+                url: 'https://www.google.com/'
+            },
+            {
+                title: 'Facebook',
+                description: 'An ok social media network',
+                url: 'https://www.facebook.com/'
+            },
+            {
+                title: 'YouTube',
+                description: 'A great way to waste time',
+                url: 'https://www.youtube.com/'
+            }
+        ],
+        keywords: [
+            'Google',
+            'Search Engine',
+            'Advertisement',
+            'Social Media'
+        ]
+    });
+
     console.log('sending to server');
     $.ajax({
         type: 'POST',
