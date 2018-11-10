@@ -5,14 +5,11 @@ import ArticleList from './ArticleList';
 class ArticleContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            fetchedArticles: []
-        };
     }
 
     render() {
-        const renderArticles = this.state.fetchedArticles.length > 0
-            ? this.state.fetchedArticles
+        const renderArticles = this.props.fetchedArticles.length > 0
+            ? this.props.fetchedArticles
             : this.props.articles;
         return (
             <ArticleList articles={renderArticles} />

@@ -1,3 +1,4 @@
+const BASE_URL = 'http://localhost:5000/service/relevant-articles';
 let popupWindowManager = new PopupWindowManager();
 let pageSourceScraper = new PageSourceScraper();
 
@@ -5,44 +6,30 @@ chrome.tabs.onUpdated.addListener(function(activeInfo) {
     pageSourceScraper.requestSource();
 });
 
+function constructRequestUrl(reddit_data) {
+    if(reddit_data.href)
+        return `${BASE_URL}?url=${reddit_data.href}`;
+    else if(reddit_data.body)
+        return `${BASE_URL}?body=${reddit_data.body}`
+    else
+        return null;
+}
+
 function sendCollectedData(payload) {
     if(!payload || !payload.reddit_data)
         return;
-    
-    popupWindowManager.updatePopupWindow(payload, {
-        articles: [
-            {
-                title: 'Google',
-                description: 'A very good search engine',
-                url: 'https://www.google.com/'
-            },
-            {
-                title: 'Facebook',
-                description: 'An ok social media network',
-                url: 'https://www.facebook.com/'
-            },
-            {
-                title: 'YouTube',
-                description: 'A great way to waste time',
-                url: 'https://www.youtube.com/'
-            }
-        ],
-        keywords: [
-            'Google',
-            'Search Engine',
-            'Advertisement',
-            'Social Media'
-        ]
-    });
 
-    console.log('sending to server');
+    const requestUrl = encodeURI(constructRequestUrl(payload.reddit_data));
+    if(!requestUrl)
+        return;
+
+    console.log(requestUrl);
     $.ajax({
-        type: 'POST',
-        url: '',
-        contentType: 'application/json; charset=utf-8',
+        type: 'GET',
+        url: requestUrl,
+        contentType: 'application/json',
         dataType: 'json',
         // The Django server expects JSON payloads as a String then parses it using json.loads(payload)
-        data: JSON.stringify(payload),
         success: function(response) {
             console.log(response);
             popupWindowManager.updatePopupWindow(payload, response);

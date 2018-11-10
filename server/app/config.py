@@ -8,8 +8,10 @@ WATSON_API_VERSION = 'watson_api_version'
 NEWS_API_SECTION = 'NewsAPI'
 NEWS_API_KEY = 'news_api_key'
 
+CONFIG_FILE = 'config.ini'
+
 parser = ConfigParser()
-parser.read('config.ini')
+parser.read(CONFIG_FILE)
 
 watson_url = parser[WATSON_SECTION][WATSON_URL]
 watson_api_key = parser[WATSON_SECTION][WATSON_API_KEY]
