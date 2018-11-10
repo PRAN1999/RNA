@@ -8,20 +8,12 @@ import App from './components/App/App';
 import store from './configureStore';
 import './index.css';
 
-if(!chrome.storage) {
+chrome.storage.local.get(['collected', 'response'], function(items) {
+    console.log(items['response']);
     ReactDOM.render(
         <Provider store={store} >
-            <App reddit-data={{}}/>
+            <App redditData={items['response']}/>
         </Provider>, 
         document.getElementById('root'));
     registerServiceWorker();
-} else {
-    chrome.storage.sync.get(['collected', 'response'], function(items) {
-        ReactDOM.render(
-            <Provider store={store} >
-                <App redditData={items['response']}/>
-            </Provider>, 
-            document.getElementById('root'));
-        registerServiceWorker();
-    });
-}
+});

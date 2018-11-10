@@ -26,7 +26,6 @@ reddit = praw.Reddit(
 
 stopwords = ['', 'and', 'or']
 
-#keywords must
 def get_articles_from_keywords(keywords):
     keyword_string = ' OR '.join(keywords)
     keyword_dict = {
@@ -46,8 +45,12 @@ def get_articles_from_keywords(keywords):
     return parsed_list
 
 def get_keywords_from_url(url):
+    xpath_str = None
+    if 'reddit' in url:
+        xpath_str = '//div[@class="expando"]'
     res = watson_nlu.analyze(
-        url=url, 
+        url=url,
+        xpath=xpath_str,
         features=Features(
             categories=CategoriesOptions(),
             concepts=ConceptsOptions(limit=5)
