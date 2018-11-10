@@ -1,9 +1,10 @@
-from app.models.article import Article
-from newsapi import NewsApiClient
 from app.config import news_api_key, watson_api_key, watson_url, watson_api_version
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 import Features, CategoriesOptions, ConceptsOptions
 import json, re
+from app.models.article import Article
+from newsapi import NewsApiClient
+from datetime import datetime, timedelta
 
 #Init
 newsapi = NewsApiClient(api_key = news_api_key)
@@ -16,9 +17,13 @@ stopwords = ['', 'and', 'or']
 
 #keywords must
 def get_articles_from_keywords(keywords):
+    now = datetime.datetime.now().replace(microsecond=0).isoformat()
+    print((now))
+    then = now - timedelta(days=7)
+    print(then)
+
     all_articles = newsapi.get_everything(
         q=keywords,
-        sources='abc-news,',
         language='en',
         sort_by='relevancy' 
     )
