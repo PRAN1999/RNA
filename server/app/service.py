@@ -9,7 +9,6 @@ from pprint import pprint
 import json, re, requests
 
 #Init
-newsapi = NewsApiClient(api_key = news_api_key)
 newsapi_url = 'https://newsapi.org/v2/everything'
 watson_nlu = NaturalLanguageUnderstandingV1(
     version=watson_api_version,
@@ -46,7 +45,7 @@ def get_keywords_from_url(url):
         )).get_result()
     kwds = set()
     categories = res['categories']
-    categories = sorted(categories, key=extract_relevancy, reverse=True)[:2]
+    categories = sorted(categories, key=extract_relevancy, reverse=True)[:10]
     for category in categories:
         labels = re.split(',| |/', category['label'])
         for label in labels:
