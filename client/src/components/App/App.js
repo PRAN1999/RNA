@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './rna.png';
+import logo from '../../rna.png';
 import './App.css';
+import TagSelect from '../TagSelect/TagSelect';
 
 class App extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class App extends Component {
           </small>
         </p>
         <div className="App-body">
+          <TagSelect/>
         </div>
       </div>
     );

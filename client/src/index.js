@@ -2,24 +2,26 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
+import App from './components/App/App';
+import store from './configureStore';
+import './index.css';
 
 if(!chrome.storage) {
-    let items = {
-        reddit_data: {
-            
-        }
-    }
-
-    ReactDOM.render(<App />, 
+    ReactDOM.render(
+        <Provider store={store} >
+            <App reddit-data={{}}/>
+        </Provider>, 
         document.getElementById('root'));
     registerServiceWorker();
 } else {
     chrome.storage.sync.get(['reddit_data'], function(items) {
         console.log(items)
-        ReactDOM.render(<App reddit-data={items['reddit_data']}/>, 
+        ReactDOM.render(
+            <Provider store={store} >
+                <App reddit-data={items['reddit_data']}/>
+            </Provider>, 
             document.getElementById('root'));
         registerServiceWorker();
     });
