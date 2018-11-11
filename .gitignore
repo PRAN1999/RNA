@@ -3,4 +3,5 @@
 *node_modules/
 */venv
 */config.ini
-client/build/
+*build/
+*.cache/
