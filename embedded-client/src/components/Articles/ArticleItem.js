@@ -6,13 +6,13 @@ export default function ArticleItem({ article }) {
     return (
         <div className={'article-item'}>
             <div>
-                <strong>Title:</strong> {title}
+                <strong className='bold'>Title:</strong> {title}
             </div>
-            <div className='fit-link'>
-                <strong>Link:</strong> <a href={url} target={'_blank'}>{url}</a>
+            <div className='fit-text'>
+                <strong className='bold'>Link:</strong> <a href={url} target={'_blank'}>{url}</a>
             </div>
-            <div>
-                <strong>Description:</strong> {description}
+            <div className='fit-text'>
+                <strong className='bold'>Description:</strong> {description}
             </div>
         </div>
     )

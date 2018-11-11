@@ -6,6 +6,11 @@
     box-shadow: -2px 4px 4px rgba(0, 0, 0, 0.1);
 }
 
-.fit-link {
+.bold {
+    font-weight: bold;
+}
+
+.fit-text {
     overflow: auto;
+    margin-top: 0.5em;
 }
