@@ -25,9 +25,15 @@
       ],
       "persistent": false
   },
-  "content_scripts": [{
+  "content_scripts": [
+    {
       "all_frames": true,
       "js": ["libs/jquery.min.js"],
       "matches": ["http://*/*", "https://*/*"]
-  }]
+    },
+    {
+      "css": ["dist/main.css"],
+      "matches": ["http://old.reddit.com/*", "https://old.reddit.com/*"]
+    }
+  ]
 }

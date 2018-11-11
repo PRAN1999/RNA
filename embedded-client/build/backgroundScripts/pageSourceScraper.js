@@ -13,7 +13,7 @@ class PageSourceScraper {
     requestSource() {
         const self = this;
         if(!location.href.includes('chrome://')) {
-            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.query({"active": true, "lastFocusedWindow": true}, function(tabs) {
                 self.injectAllScripts(tabs[0].id, self.contentScripts);
             });
         }
