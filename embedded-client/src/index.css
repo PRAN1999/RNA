@@ -4,10 +4,10 @@ body {
   font-family: sans-serif;
 }
 
-#chromeExtensionReactApp {
+#RNAExtension {
   position: absolute;
   right: 0px;
-  top: 0;
   width: 305px;
+  top: 0;
   background-color: #fff;
 }
