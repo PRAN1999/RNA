@@ -45,16 +45,24 @@ def get_articles_from_keywords(keywords):
     return parsed_list
 
 def get_keywords_from_url(url):
-    xpath_str = None
     if 'reddit' in url:
-        xpath_str = '//div[@class="expando"]'
-    res = watson_nlu.analyze(
-        url=url,
-        xpath=xpath_str,
-        features=Features(
-            categories=CategoriesOptions(),
-            concepts=ConceptsOptions(limit=5)
-        )).get_result()
+        submission = reddit.submission(url=url)
+        if not submission.selftext == None:
+            res = watson_nlu.analyze(
+                text= submission.selftext,
+                features=Features(
+                    categories=CategoriesOptions(),
+                    concepts=ConceptsOptions(limit=5)
+                )).get_result()
+        else:
+            return []
+    else:
+        res = watson_nlu.analyze(
+            url=url,
+            features=Features(
+                categories=CategoriesOptions(),
+                concepts=ConceptsOptions(limit=5)
+            )).get_result()
     kwds = set()
     categories = res['categories']
     categories = sorted(categories, key=extract_relevancy, reverse=True)[:10]
