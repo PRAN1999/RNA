@@ -21,7 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "parcel-build": "parcel build src/index.js -d build -o main.js",
+    "parcel-watch": "parcel watch src/index.js -d build -o main.js"
   },
   "devDependencies": {
     "nodemon": "^1.17.5",
