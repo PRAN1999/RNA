@@ -25,6 +25,7 @@ class TagSelect extends Component {
     render() {
         return <Select 
             onChange={this.onOptionsUpdated}
+            closeMenuOnSelect={false}
             options={this.state.options} 
             isMulti={true} 
         />;

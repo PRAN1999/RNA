@@ -42,7 +42,7 @@ function createToggleButton() {
         if(!visible)
             application.animate({
                 opacity: 0.0,
-                right: "-100px",
+                right: "-300px",
             }, 1000);
         else
             application.animate({
