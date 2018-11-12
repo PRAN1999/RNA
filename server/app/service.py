@@ -10,13 +10,13 @@ from pprint import pprint
 import json, re, requests, praw
 
 #Init
-newsapi_url = 'https://newsapi.org/v2/everything'
-watson_nlu = NaturalLanguageUnderstandingV1(
+_newsapi_url = 'https://newsapi.org/v2/everything'
+_watson_nlu = NaturalLanguageUnderstandingV1(
     version=watson_api_version,
     iam_apikey=watson_api_key,
     url=watson_url
 )
-reddit = praw.Reddit(
+_reddit = praw.Reddit(
     client_id=reddit_client_id,
     client_secret=reddit_client_secret,
     password=reddit_password,
@@ -24,7 +24,7 @@ reddit = praw.Reddit(
     username=reddit_username
 )
 
-stopwords = ['', 'and', 'or']
+_stopwords = ['', 'and', 'or']
 
 def get_articles_from_keywords(keywords):
     keyword_string = ' OR '.join(keywords)
@@ -36,7 +36,7 @@ def get_articles_from_keywords(keywords):
     now = datetime.now()
     now = now - timedelta(days=30)
 
-    request_url = '{}?{}&apiKey={}&sortBy=relevancy'.format(newsapi_url, encoded_keywords, news_api_key)
+    request_url = '{}?{}&apiKey={}&sortBy=relevancy'.format(_newsapi_url, encoded_keywords, news_api_key)
     all_articles = requests.get(request_url).json()
     articles = all_articles['articles']
     parsed_list = []
@@ -47,13 +47,13 @@ def get_articles_from_keywords(keywords):
 def get_keywords_from_url(url):
     text = None
     if 'reddit' in url:
-        submission = reddit.submission(url=url)
+        submission = _reddit.submission(url=url)
         if submission.selftext is not None:
             text = submission.selftext
             url = None
         else:
             return []
-    res = watson_nlu.analyze(
+    res = _watson_nlu.analyze(
         url=url,
         text=text,
         features=Features(
@@ -71,7 +71,7 @@ def get_keywords_from_url(url):
     if 'concepts' in res:
         for concept in res['concepts']:
             kwds.add(concept['text'])
-    for stopword in stopwords:
+    for stopword in _stopwords:
         if stopword in kwds:
             kwds.remove(stopword)
     return list(kwds)
