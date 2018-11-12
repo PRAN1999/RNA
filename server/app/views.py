@@ -1,15 +1,16 @@
 from flask import Blueprint, request, jsonify
-from app.service import get_keywords_from_url, get_articles_from_keywords
+from app.service import get_keywords_from_url, get_articles_from_keywords, get_news_link
 import json
 
 mod = Blueprint('service', __name__, url_prefix='/service')
 
 @mod.route('/relevant-articles', methods=['GET'])
 def find_relevant_articles():
-    url = request.args.get('url')
+    reddit_url = request.args.get('url')
     kwd_args = request.args.getlist('kwd')
     kwds = []
-    if url is not None:
+    if reddit_url is not None:
+        url = get_news_link(reddit_url)
         kwds = get_keywords_from_url(url)
     elif kwd_args.count != 0:
         kwds = kwd_args

@@ -84,3 +84,6 @@ def get_keywords_from_url(url):
 
 def extract_relevancy(category):
     return category['score']
+
+def get_news_link(reddit_url):
+    return reddit_url
