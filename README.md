@@ -16,6 +16,18 @@ It allows you to:
 
 Overall, this makes it *much* easier to stay on top of current events and contribute more confidently to Reddit's ecosystem, and we hope you find this to be true.
 
+#### Some examples of RNA in action:
+
+[Click here](https://youtu.be/qN-tWPS6SRE) to see a complete (and higher quality) video of RNA being used on a specific Reddit post.
+
+Example of the extension working in /r/cscareerquestions:
+
+![Example of the extension working in /r/news](https://media.giphy.com/media/1Af76HRni2FFIgJWNa/giphy.gif)
+
+Finding *more* articles based on the retrieved tags, and hiding RNA in Reddit:
+
+![Example of the extension working in /r/cscareerquestions](https://media.giphy.com/media/25aH4D32jjUlw4jsR5/giphy.gif)
+
 ### How does it work?
 The functionality of this application is split into the usual frontend and backend components.
 
@@ -154,4 +166,4 @@ We learned a **ton** about creating Chrome extensions, as well as how to use the
 
 ## What's next for Reddit News Accessory (RNA)
 
-We planned on generalizing the information retrieval performed by RNA to more abstract sources of information, such as any news article. This could make RNA more useful by making its functionality accessible in various platforms.
+We planned on generalizing the information retrieval performed by RNA to more abstract sources of information, such as any news article. This could make RNA more useful by making its functionality accessible in various platforms. We also plan on deploying this extension to the Chrome web store soon.

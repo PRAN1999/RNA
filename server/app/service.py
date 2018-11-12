@@ -64,13 +64,17 @@ def get_keywords_from_url(url):
                 concepts=ConceptsOptions(limit=5)
             )).get_result()
     kwds = set()
-    categories = res['categories']
-    categories = sorted(categories, key=extract_relevancy, reverse=True)[:10]
+    categories = []
+    if 'categories' in res:
+        categories = res['categories']
+        categories = sorted(categories, key=extract_relevancy, reverse=True)[:10]
     for category in categories:
         labels = re.split(',| |/', category['label'])
         for label in labels:
             kwds.add(label)
-    concepts = res['concepts']
+    concepts = []
+    if 'concepts' in res:
+        concepts = res['concepts']
     for concept in concepts:
         kwds.add(concept['text'])
     for stopword in stopwords:

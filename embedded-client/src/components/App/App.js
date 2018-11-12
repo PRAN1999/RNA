@@ -23,7 +23,7 @@ class App extends Component {
         <br />
         <p className="App-intro">
           <h1>
-            To get started, just open up any <code>Reddit</code> text post, and we'll relevant links for you.
+            To get started, just open up any <code>Reddit</code> text post, and we'll find relevant links for you.
           </h1>
         </p>
         <div className="App-body">
