@@ -2,7 +2,7 @@ from app.config import news_api_key, watson_api_key, watson_url, watson_api_vers
 from app.config import reddit_client_id, reddit_client_secret, reddit_username, reddit_password, reddit_user_agent
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 import Features, CategoriesOptions, ConceptsOptions
-from app.models.article import Article
+from .models import Article
 from newsapi import NewsApiClient
 from datetime import datetime, timedelta
 from urllib.parse import urlencode, quote_plus
@@ -45,38 +45,32 @@ def get_articles_from_keywords(keywords):
     return parsed_list
 
 def get_keywords_from_url(url):
+    text = None
     if 'reddit' in url:
         submission = reddit.submission(url=url)
-        if not submission.selftext == None:
-            res = watson_nlu.analyze(
-                text= submission.selftext,
-                features=Features(
-                    categories=CategoriesOptions(),
-                    concepts=ConceptsOptions(limit=5)
-                )).get_result()
+        if submission.selftext is not None:
+            text = submission.selftext
+            url = None
         else:
             return []
-    else:
-        res = watson_nlu.analyze(
-            url=url,
-            features=Features(
-                categories=CategoriesOptions(),
-                concepts=ConceptsOptions(limit=5)
-            )).get_result()
+    res = watson_nlu.analyze(
+        url=url,
+        text=text,
+        features=Features(
+            categories=CategoriesOptions(),
+            concepts=ConceptsOptions(limit=5)
+        )).get_result()
     kwds = set()
-    categories = []
     if 'categories' in res:
         categories = res['categories']
         categories = sorted(categories, key=extract_relevancy, reverse=True)[:10]
-    for category in categories:
-        labels = re.split(',| |/', category['label'])
-        for label in labels:
-            kwds.add(label)
-    concepts = []
+        for category in categories:
+            labels = re.split(',| |/', category['label'])
+            for label in labels:
+                kwds.add(label)
     if 'concepts' in res:
-        concepts = res['concepts']
-    for concept in concepts:
-        kwds.add(concept['text'])
+        for concept in res['concepts']:
+            kwds.add(concept['text'])
     for stopword in stopwords:
         if stopword in kwds:
             kwds.remove(stopword)

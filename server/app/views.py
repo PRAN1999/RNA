@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.service import get_keywords_from_url, get_articles_from_keywords, get_news_link
+from .service import get_keywords_from_url, get_articles_from_keywords, get_news_link
 import json
 
 mod = Blueprint('service', __name__, url_prefix='/service')
@@ -8,7 +8,6 @@ mod = Blueprint('service', __name__, url_prefix='/service')
 def find_relevant_articles():
     reddit_url = request.args.get('url')
     kwd_args = request.args.getlist('kwd')
-    kwds = []
     if reddit_url is not None:
         url = get_news_link(reddit_url)
         kwds = get_keywords_from_url(url)
