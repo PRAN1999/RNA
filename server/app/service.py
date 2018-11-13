@@ -3,7 +3,6 @@ from app.config import reddit_client_id, reddit_client_secret, reddit_username, 
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 import Features, CategoriesOptions, ConceptsOptions
 from .models import Article
-from newsapi import NewsApiClient
 from datetime import datetime, timedelta
 from urllib.parse import urlencode, quote_plus
 from pprint import pprint
