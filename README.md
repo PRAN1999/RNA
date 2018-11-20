@@ -66,7 +66,7 @@ python3 run.py
 
 # Build the extension in another terminal tab
 cd embedded-client
-npm run install
+npm install
 npm install -g parcel
 # Running build.sh will build the extension into a single 'build' folder 
 source build.sh
