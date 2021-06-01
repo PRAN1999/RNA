@@ -11,7 +11,7 @@ praw==6.0.0
 python-dateutil==2.7.5
 requests==2.17.1
 six==1.11.0
-urllib3==1.21.1
+urllib3==1.26.5
 watson-developer-cloud==2.4.1
 websocket-client==0.47.0
 Werkzeug==0.14.1
